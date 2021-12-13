@@ -1,8 +1,8 @@
 package io.github.emfsilva.restfull.converters;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
-@Controller
+@Service
 public class NumberConverter {
 
     public Double convertToDouble(String strNumber) {

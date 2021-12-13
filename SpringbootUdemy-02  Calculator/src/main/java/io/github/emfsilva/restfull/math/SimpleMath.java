@@ -1,5 +1,8 @@
 package io.github.emfsilva.restfull.math;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class SimpleMath {
 
     public Double sum(Double firtNumber, Double secondNumber) {
@@ -20,14 +23,4 @@ public class SimpleMath {
     public Double squareRoot(Double number) {
         return Math.sqrt(number);
     }
-
-    public String remnant(Double firtNumber, Double secondNumber) {
-        Double result =  firtNumber % secondNumber;
-        if(result == 0) {
-            return "ODD";
-        } else {
-            return "EVEN";
-        }
-    }
-
 }

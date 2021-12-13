@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class MathController {
 
     private NumberConverter numberConverter;
-    SimpleMath math = new SimpleMath();
+    private SimpleMath math;
 
     @Autowired
-    public MathController(NumberConverter numberConverter) {
+    public MathController(NumberConverter numberConverter, SimpleMath math) {
         this.numberConverter = numberConverter;
+        this.math = math;
     }
 
 
@@ -72,14 +73,5 @@ public class MathController {
         }
         return math.squareRoot(numberConverter.convertToDouble(number));
 
-    }
-
-    @RequestMapping(value = "/remnant/{numberOne}/{numberTwo}", method = RequestMethod.GET)
-    public String remnant(@PathVariable("numberOne") String numberOne, @PathVariable("numberTwo") String numberTwo) {
-        if (!numberConverter.isNumeric(numberOne) || !numberConverter.isNumeric(numberTwo)) {
-            throw new UnsupportedOperationException("Please set a numeric value!");
-        }
-
-        return math.remnant(numberConverter.convertToDouble(numberOne), numberConverter.convertToDouble(numberTwo));
     }
 }
