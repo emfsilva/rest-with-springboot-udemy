@@ -18,12 +18,17 @@ public class MathController {
         return sum;
     }
 
-    private Double convertToDouble(String number) {
-        return 1D;
+    private Double convertToDouble(String strNumber) {
+        if(strNumber == null) return 0D;
+        String number = strNumber.replaceAll(",", ".");
+        if (isNumeric(number)) return Double.parseDouble(number);
+        return 0D;
     }
 
-    private boolean isNumeric(String number) {
-
+    private boolean isNumeric(String strNumber) {
+        if(strNumber == null) return false;
+        String number = strNumber.replaceAll(",", ".");
+        number.matches("[-+]?[0-9]*\\\\.?[0-9+]");
         return false;
     }
 }
