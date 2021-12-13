@@ -1,7 +1,7 @@
 package io.github.emfsilva.restfull.exception.handler;
 
 import io.github.emfsilva.restfull.exception.ExceptionResponse;
-import io.github.emfsilva.restfull.exception.UnsupportedMathOperationException;
+import io.github.emfsilva.restfull.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,7 +26,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(UnsupportedMathOperationException.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     public final ResponseEntity<ExceptionResponse> handlerBadRequestException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(
