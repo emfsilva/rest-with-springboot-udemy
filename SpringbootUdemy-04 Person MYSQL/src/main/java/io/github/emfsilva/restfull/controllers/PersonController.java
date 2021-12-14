@@ -41,10 +41,11 @@ public class PersonController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public Person update(@RequestBody Person person) {
-        return service.create(person);
+        return service.update(person);
     }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}",
+            method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
         service.delete(id);
     }
