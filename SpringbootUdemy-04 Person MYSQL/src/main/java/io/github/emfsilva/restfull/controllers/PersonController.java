@@ -2,8 +2,10 @@ package io.github.emfsilva.restfull.controllers;
 
 import io.github.emfsilva.restfull.model.Person;
 import io.github.emfsilva.restfull.services.PersonService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,33 +22,33 @@ public class PersonController {
         this.service = service;
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findAll() {
-        return service.findAll();
+    @GetMapping
+    public ResponseEntity<List<Person>> findAll() {
+         List<Person> persons = service.findAll();
+        return ResponseEntity.ok().body(persons);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable("id") Long id) {
-        return service.findById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Person> findById(@PathVariable("id") Long id) {
+        Person person = service.findById(id);
+        return ResponseEntity.ok().body(person);
     }
 
-    @RequestMapping(method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person create(@RequestBody Person person) {
-        return service.create(person);
+    @PostMapping
+    public ResponseEntity<Person> create(@RequestBody Person person) {
+        Person p = service.create(person);
+        return ResponseEntity.ok().body(p);
     }
 
-    @RequestMapping(method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody Person person) {
-        return service.update(person);
+    @PutMapping
+    public ResponseEntity<Person> update(@RequestBody Person person) {
+        Person p = service.update(person);
+        return ResponseEntity.ok().body(p);
     }
 
-    @RequestMapping(value = "/{id}",
-            method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         service.delete(id);
+       return  ResponseEntity.ok().build();
     }
 }
