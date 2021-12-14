@@ -2,9 +2,7 @@ package io.github.emfsilva.restfull.controllers;
 
 import io.github.emfsilva.restfull.model.Person;
 import io.github.emfsilva.restfull.services.PersonService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,27 +21,23 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Person>> findAll() {
-         List<Person> persons = service.findAll();
-        return ResponseEntity.ok().body(persons);
+    public List<Person> findAll() {
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Person> findById(@PathVariable("id") Long id) {
-        Person person = service.findById(id);
-        return ResponseEntity.ok().body(person);
+    public Person findById(@PathVariable("id") Long id) {
+        return service.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Person> create(@RequestBody Person person) {
-        Person p = service.create(person);
-        return ResponseEntity.ok().body(p);
+    public Person create(@RequestBody Person person) {
+        return service.create(person);
     }
 
     @PutMapping
-    public ResponseEntity<Person> update(@RequestBody Person person) {
-        Person p = service.update(person);
-        return ResponseEntity.ok().body(p);
+    public Person update(@RequestBody Person person) {
+        return service.update(person);
     }
 
     @DeleteMapping("/{id}")
