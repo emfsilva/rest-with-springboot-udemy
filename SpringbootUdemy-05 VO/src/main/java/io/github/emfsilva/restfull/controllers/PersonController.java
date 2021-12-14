@@ -1,6 +1,7 @@
 package io.github.emfsilva.restfull.controllers;
 
-import io.github.emfsilva.restfull.model.Person;
+import io.github.emfsilva.restfull.data.model.Person;
+import io.github.emfsilva.restfull.data.vo.PersonVO;
 import io.github.emfsilva.restfull.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,22 +21,22 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> findAll() {
+    public List<PersonVO> findAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public Person findById(@PathVariable("id") Long id) {
+    public PersonVO findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }
 
     @PostMapping
-    public Person create(@RequestBody Person person) {
+    public PersonVO create(@RequestBody PersonVO person) {
         return service.create(person);
     }
 
     @PutMapping
-    public Person update(@RequestBody Person person) {
+    public PersonVO update(@RequestBody PersonVO person) {
         return service.update(person);
     }
 
