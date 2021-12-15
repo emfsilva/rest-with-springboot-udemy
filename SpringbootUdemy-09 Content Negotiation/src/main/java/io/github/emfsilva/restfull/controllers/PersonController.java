@@ -19,24 +19,24 @@ public class PersonController {
         this.service = service;
     }
 
-    @GetMapping(produces = {"application/json", "application/xml"})
+    @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
     public List<PersonDTO> findAll() {
         return service.findAll();
     }
 
-    @GetMapping(value = "/{id}", produces = {"application/json", "application/xml"})
+    @GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})
     public PersonDTO findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }
 
-    @PostMapping(produces = {"application/json", "application/xml"},
-                 consumes = {"application/json", "application/xml"})
+    @PostMapping(produces = {"application/json", "application/xml", "application/x-yaml"},
+                 consumes = {"application/json", "application/xml", "application/x-yaml"})
     public PersonDTO create(@RequestBody PersonDTO person) {
         return service.create(person);
     }
 
-    @PutMapping(produces = {"application/json", "application/xml"},
-                consumes = {"application/json", "application/xml"})
+    @PutMapping(produces = {"application/json", "application/xml","application/x-yaml"},
+                consumes = {"application/json", "application/xml","application/x-yaml"})
     public PersonDTO update(@RequestBody PersonDTO person) {
         return service.update(person);
     }

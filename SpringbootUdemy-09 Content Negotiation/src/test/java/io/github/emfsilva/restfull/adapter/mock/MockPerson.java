@@ -1,4 +1,4 @@
-package io.github.emfsilva.restfull.converter.mock;
+package io.github.emfsilva.restfull.adapter.mock;
 
 import io.github.emfsilva.restfull.data.model.Person;
 import io.github.emfsilva.restfull.data.dto.v1.PersonDTO;

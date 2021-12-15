@@ -1,6 +1,6 @@
 package io.github.emfsilva.restfull.services;
 
-import io.github.emfsilva.restfull.converter.DozerConverter;
+import io.github.emfsilva.restfull.adapter.DozerConverter;
 import io.github.emfsilva.restfull.data.dto.v1.PersonDTO;
 import io.github.emfsilva.restfull.data.model.Person;
 import io.github.emfsilva.restfull.exception.ResourceNotFoundException;

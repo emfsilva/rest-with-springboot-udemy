@@ -1,4 +1,4 @@
-package io.github.emfsilva.restfull.converter;
+package io.github.emfsilva.restfull.adapter;
 
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;

@@ -1,6 +1,6 @@
-package io.github.emfsilva.restfull.converter;
+package io.github.emfsilva.restfull.adapter;
 
-import io.github.emfsilva.restfull.converter.mock.MockPerson;
+import io.github.emfsilva.restfull.adapter.mock.MockPerson;
 import io.github.emfsilva.restfull.data.model.Person;
 import io.github.emfsilva.restfull.data.dto.v1.PersonDTO;
 import org.junit.Assert;
