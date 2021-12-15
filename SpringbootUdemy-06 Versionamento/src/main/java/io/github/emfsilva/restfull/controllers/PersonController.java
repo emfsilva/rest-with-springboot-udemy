@@ -1,6 +1,7 @@
 package io.github.emfsilva.restfull.controllers;
 
 import io.github.emfsilva.restfull.data.dto.PersonDTO;
+import io.github.emfsilva.restfull.data.dto.v2.PersonDTOV2;
 import io.github.emfsilva.restfull.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,11 @@ public class PersonController {
     @PostMapping
     public PersonDTO create(@RequestBody PersonDTO person) {
         return service.create(person);
+    }
+
+    @PostMapping("/v2")
+    public PersonDTOV2 createV2(@RequestBody PersonDTOV2 person) {
+        return service.createV2(person);
     }
 
     @PutMapping

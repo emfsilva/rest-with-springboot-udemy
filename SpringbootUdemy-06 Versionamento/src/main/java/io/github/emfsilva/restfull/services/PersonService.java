@@ -1,9 +1,11 @@
 package io.github.emfsilva.restfull.services;
 
 import io.github.emfsilva.restfull.converter.DozerConverter;
+import io.github.emfsilva.restfull.converter.custom.PersonConverter;
 import io.github.emfsilva.restfull.data.dto.PersonDTO;
-import io.github.emfsilva.restfull.data.model.Person;
+import io.github.emfsilva.restfull.data.dto.v2.PersonDTOV2;
 import io.github.emfsilva.restfull.exception.ResourceNotFoundException;
+import io.github.emfsilva.restfull.data.model.Person;
 import io.github.emfsilva.restfull.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,12 @@ import java.util.List;
 public class PersonService {
 
     private PersonRepository repository;
+    private PersonConverter converter;
 
     @Autowired
-    public PersonService(PersonRepository repository) {
+    public PersonService(PersonRepository repository, PersonConverter converter) {
         this.repository = repository;
+        this.converter = converter;
     }
 
     public PersonDTO create(PersonDTO person) {
@@ -25,6 +29,13 @@ public class PersonService {
         var dto = DozerConverter.parseObject(repository.save(entity), PersonDTO.class);
         return dto;
     }
+
+    public PersonDTOV2 createV2(PersonDTOV2 person) {
+        var entity = converter.convertDTOToEntity(person);
+        var dto = converter.convertEntityToDTO(repository.save(entity));
+        return dto;
+    }
+
 
     public List<PersonDTO> findAll() {
         return DozerConverter.parseListObjects(repository.findAll(), PersonDTO.class);

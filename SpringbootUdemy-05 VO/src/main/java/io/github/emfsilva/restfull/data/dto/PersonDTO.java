@@ -1,4 +1,4 @@
-package io.github.emfsilva.restfull.data.vo;
+package io.github.emfsilva.restfull.data.dto;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 
-public class PersonVO implements Serializable {
+public class PersonDTO implements Serializable {
     private static final long serialVersionUID = -2157592387257060508L;
 
     private Long id;
