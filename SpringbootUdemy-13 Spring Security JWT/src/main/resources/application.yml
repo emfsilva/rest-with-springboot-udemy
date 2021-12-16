@@ -1,0 +1,23 @@
+flyway:
+    password: root
+    schemas: rest_mysql
+    url: jdbc:mysql://localhost:3306/
+    user: root
+server:
+    port: 1001
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: root
+        url: jdbc:mysql://localhost:3306/rest_mysql?verifyServerCertificate=false&useSSL=false&requireSSL=false
+        username: root
+    jackson:
+        default-property-inclusion: non_null
+    jpa:
+        database-platform: org.hibernate.dialect.MySQL5Dialect
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5Dialect
+        show-sql: true
