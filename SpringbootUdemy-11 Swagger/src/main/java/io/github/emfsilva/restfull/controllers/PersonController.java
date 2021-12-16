@@ -6,6 +6,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import io.github.emfsilva.restfull.data.dto.v1.PersonDTO;
 import io.github.emfsilva.restfull.data.model.Person;
 import io.github.emfsilva.restfull.services.PersonService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(value = "Person Endpoint", description = "Description for person", tags = {"Person Endpoint"})
 @RestController
 @RequestMapping("/api/person/v1")
 public class PersonController {
@@ -24,6 +27,7 @@ public class PersonController {
         this.service = service;
     }
 
+    @ApiOperation(value = "Find all person record")
     @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
     public List<PersonDTO> findAll() {
         List<PersonDTO> persons = service.findAll();
@@ -31,7 +35,7 @@ public class PersonController {
         return persons;
     }
 
-
+    @ApiOperation(value = "Find just a person to ID")
     @GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})
     public PersonDTO findById(@PathVariable("id") Long id) {
        PersonDTO personDTO = service.findById(id);
@@ -40,6 +44,7 @@ public class PersonController {
 
     }
 
+    @ApiOperation(value = "Create a new person record")
     @PostMapping(produces = {"application/json", "application/xml", "application/x-yaml"},
                  consumes = {"application/json", "application/xml", "application/x-yaml"})
     public PersonDTO create(@RequestBody PersonDTO person) {
@@ -48,6 +53,7 @@ public class PersonController {
         return personDTO;
     }
 
+    @ApiOperation(value = "Update person")
     @PutMapping(produces = {"application/json", "application/xml","application/x-yaml"},
                 consumes = {"application/json", "application/xml","application/x-yaml"})
     public PersonDTO update(@RequestBody PersonDTO person) {
@@ -56,6 +62,7 @@ public class PersonController {
         return personDTO;
     }
 
+    @ApiOperation(value = "Delete person")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         service.delete(id);

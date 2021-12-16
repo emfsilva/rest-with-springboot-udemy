@@ -3,6 +3,8 @@ package io.github.emfsilva.restfull.controllers;
 import io.github.emfsilva.restfull.data.dto.v1.BookDTO;
 import io.github.emfsilva.restfull.data.model.Book;
 import io.github.emfsilva.restfull.services.BookService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import java.util.List;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+@Api(value = "Book Endpoint", description = "Description for book", tags = {"Book Endpoint"})
 @RestController
 @RequestMapping("/api/book/v1")
 public class BookController {
@@ -23,6 +26,7 @@ public class BookController {
         this.service = service;
     }
 
+    @ApiOperation(value = "Find all books record")
     @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
     public List<BookDTO> findAll() {
         List<BookDTO> books = service.findAll();
@@ -30,6 +34,7 @@ public class BookController {
         return books;
     }
 
+    @ApiOperation(value = "Find just a book to ID")
     @GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})
     public BookDTO findById(@PathVariable("id") Long id) {
         BookDTO bookDTO = service.findById(id);
@@ -37,6 +42,7 @@ public class BookController {
         return bookDTO;
     }
 
+    @ApiOperation(value = "Create a new book")
     @PostMapping(produces = {"application/json", "application/xml", "application/x-yaml"},
             consumes = {"application/json", "application/xml", "application/x-yaml"})
     public BookDTO create(@RequestBody BookDTO book) {
@@ -45,6 +51,7 @@ public class BookController {
         return  bookDTO;
     }
 
+    @ApiOperation(value = "Update book")
     @PutMapping(produces = {"application/json", "application/xml","application/x-yaml"},
             consumes = {"application/json", "application/xml","application/x-yaml"})
     public BookDTO update(@RequestBody BookDTO book) {
@@ -53,6 +60,7 @@ public class BookController {
         return  bookDTO;
     }
 
+    @ApiOperation(value = "Delete book to ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         service.delete(id);
