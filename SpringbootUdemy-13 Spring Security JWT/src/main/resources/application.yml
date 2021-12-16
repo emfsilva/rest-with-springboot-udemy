@@ -3,6 +3,11 @@ flyway:
     schemas: rest_mysql
     url: jdbc:mysql://localhost:3306/
     user: root
+security:
+    jwt:
+        token:
+            expire-length: 3600000
+            secret-key: secret
 server:
     port: 1001
 spring:
