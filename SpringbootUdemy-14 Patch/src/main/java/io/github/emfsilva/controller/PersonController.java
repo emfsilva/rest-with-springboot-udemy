@@ -62,9 +62,17 @@ public class PersonController {
 	}
 
 	@ApiOperation(value = "Disable a specific person by your ID" )
-	@PatchMapping(value = "/{id}", produces = { "application/json", "application/xml", "application/x-yaml" })
+	@PatchMapping(value = "/disable/{id}", produces = { "application/json", "application/xml", "application/x-yaml" })
 	public PersonDTO disablePerson(@PathVariable("id") Long id) {
 		PersonDTO personDTO = service.disablePersons(id);
+		personDTO.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+		return personDTO;
+	}
+
+	@ApiOperation(value = "Enable a specific person by your ID" )
+	@PatchMapping(value = "/enable/{id}", produces = { "application/json", "application/xml", "application/x-yaml" })
+	public PersonDTO enablePerson(@PathVariable("id") Long id) {
+		PersonDTO personDTO = service.enablePersons(id);
 		personDTO.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
 		return personDTO;
 	}

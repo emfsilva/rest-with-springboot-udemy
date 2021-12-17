@@ -12,6 +12,11 @@ import org.springframework.stereotype.Repository;
 public interface PersonRepository extends JpaRepository<Person, Long>{
 
     @Modifying
-    @Query("UPDATE Person p SET p,enabled = false WHERE p.id =:id")
+    @Query("UPDATE Person p SET p.enabled = false WHERE p.id =:id")
     void disablePersons(@Param("id") Long id);
+
+    @Modifying
+    @Query("UPDATE Person p SET p.enabled = true WHERE p.id =:id")
+    void enablePersons(@Param("id") Long id);
+
 }

@@ -56,6 +56,14 @@ public class PersonServices {
 		return DozerConverter.parseObject(entity, PersonDTO.class);
 	}
 
+	@Transactional
+	public PersonDTO enablePersons(Long id) {
+		repository.enablePersons(id);
+		var entity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+		return DozerConverter.parseObject(entity, PersonDTO.class);
+	}
+
 	
 	public void delete(Long id) {
 		Person entity = repository.findById(id)
