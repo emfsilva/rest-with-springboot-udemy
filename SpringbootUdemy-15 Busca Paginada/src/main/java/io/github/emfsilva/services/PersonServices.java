@@ -3,6 +3,7 @@ package io.github.emfsilva.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import io.github.emfsilva.converter.DozerConverter;
@@ -24,8 +25,9 @@ public class PersonServices {
 		return vo;
 	}
 	
-	public List<PersonDTO> findAll() {
-		return DozerConverter.parseListObjects(repository.findAll(), PersonDTO.class);
+	public List<PersonDTO> findAll(Pageable pageable) {
+		var entities = repository.findAll(pageable).getContent();
+		return DozerConverter.parseListObjects(entities, PersonDTO.class);
 	}	
 	
 	public PersonDTO findById(Long id) {

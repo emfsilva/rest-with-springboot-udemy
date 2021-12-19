@@ -8,6 +8,8 @@ import java.util.List;
 import io.github.emfsilva.data.vo.v1.PersonDTO;
 import io.github.emfsilva.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +24,7 @@ public class PersonController {
 	@Autowired
 	private PersonServices service;
 	
-	@ApiOperation(value = "Find all people" ) 
+/*	@ApiOperation(value = "Find all people" )
 	@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml" })
 	public List<PersonDTO> findAll() {
 		List<PersonDTO> persons =  service.findAll();
@@ -33,7 +35,26 @@ public class PersonController {
 				)
 			);
 		return persons;
-	}	
+	}	*/
+
+	@ApiOperation(value = "Find all people" )
+	@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml" })
+	public List<PersonDTO> findAll(
+			@RequestParam (value = "page", defaultValue = "0") int page,
+			@RequestParam (value = "limit", defaultValue = "12") int limit) {
+
+		Pageable pageable = PageRequest.of(page, limit);
+
+		List<PersonDTO> persons =  service.findAll(pageable);
+		persons
+			.stream()
+			.forEach(p -> p.add(
+					linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()
+				)
+			);
+		return persons;
+	}
+
 	
 	@ApiOperation(value = "Find a specific person by your ID" )
 	@GetMapping(value = "/{id}", produces = { "application/json", "application/xml", "application/x-yaml" })
