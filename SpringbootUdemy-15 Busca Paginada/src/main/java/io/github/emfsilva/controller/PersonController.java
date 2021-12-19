@@ -10,6 +10,7 @@ import io.github.emfsilva.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,9 +42,12 @@ public class PersonController {
 	@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml" })
 	public List<PersonDTO> findAll(
 			@RequestParam (value = "page", defaultValue = "0") int page,
-			@RequestParam (value = "limit", defaultValue = "12") int limit) {
+			@RequestParam (value = "limit", defaultValue = "12") int limit,
+			@RequestParam (value = "direction", defaultValue = "asc") String direction) {
 
-		Pageable pageable = PageRequest.of(page, limit);
+		var sorDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
+
+		Pageable pageable = PageRequest.of(page, limit, Sort.by(sorDirection, "firstName"));
 
 		List<PersonDTO> persons =  service.findAll(pageable);
 		persons
