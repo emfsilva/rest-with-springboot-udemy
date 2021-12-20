@@ -25,15 +25,20 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class BookController {
 
     @Autowired
-    private BookServices service;
+    private final BookServices service;
+    private final PagedResourcesAssembler<BookDTO> assembler;
+
+    public BookController(BookServices service, PagedResourcesAssembler<BookDTO> assembler) {
+        this.service = service;
+        this.assembler = assembler;
+    }
 
     @ApiOperation(value = "Find all books")
     @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
     public ResponseEntity<PagedResources<BookDTO>> findAll(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "12") int limit,
-            @RequestParam(value = "direction", defaultValue = "asc") String direction,
-            PagedResourcesAssembler assembler) {
+            @RequestParam(value = "direction", defaultValue = "asc") String direction) {
 
         var sorDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
 
@@ -41,7 +46,7 @@ public class BookController {
 
         Page<BookDTO> books = service.findAll(pageable);
         books.forEach(b -> b.add(linkTo(methodOn(BookController.class).findById(b.getKey())).withSelfRel()));
-        return new ResponseEntity<>(assembler.toResource(books), HttpStatus.OK);
+        return new ResponseEntity(assembler.toResource(books), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Find a specific book by your ID")
@@ -88,7 +93,7 @@ public class BookController {
 
     @ApiOperation(value = "Delete a specific book by your ID")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<BookDTO> delete(@PathVariable("id") Long id) {
         service.delete(id);
         return ResponseEntity.ok().build();
     }
