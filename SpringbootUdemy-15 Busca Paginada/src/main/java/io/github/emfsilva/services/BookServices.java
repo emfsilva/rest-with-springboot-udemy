@@ -4,12 +4,16 @@ import java.util.List;
 
 import io.github.emfsilva.data.model.Book;
 import io.github.emfsilva.data.vo.v1.BookDTO;
+import io.github.emfsilva.data.vo.v1.PersonDTO;
 import io.github.emfsilva.exception.ResourceNotFoundException;
 import io.github.emfsilva.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import io.github.emfsilva.converter.DozerConverter;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BookServices {
@@ -23,10 +27,15 @@ public class BookServices {
 		return vo;
 	}
 	
-	public List<BookDTO> findAll() {
-		return DozerConverter.parseListObjects(repository.findAll(), BookDTO.class);
-	}	
-	
+	public Page<BookDTO> findAll(Pageable pageable) {
+		var page = repository.findAll(pageable);
+		return page.map(this::converterToBookDTO);
+	}
+
+	private BookDTO converterToBookDTO(Book book) {
+		return DozerConverter.parseObject(book, BookDTO.class);
+	}
+
 	public BookDTO findById(Long id) {
 
 		var entity = repository.findById(id)
@@ -45,7 +54,23 @@ public class BookServices {
 		
 		var vo = DozerConverter.parseObject(repository.save(entity), BookDTO.class);
 		return vo;
-	}	
+	}
+
+	@Transactional
+	public PersonDTO disableBooks(Long id) {
+		repository.disableBooks(id);
+		var entity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+		return DozerConverter.parseObject(entity, PersonDTO.class);
+	}
+
+	@Transactional
+	public PersonDTO enableBooks(Long id) {
+		repository.enableBooks(id);
+		var entity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+		return DozerConverter.parseObject(entity, PersonDTO.class);
+	}
 	
 	public void delete(Long id) {
 		Book entity = repository.findById(id)

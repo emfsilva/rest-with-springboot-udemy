@@ -42,4 +42,7 @@ public class Book implements Serializable{
 	
 	@Column(nullable = false, length = 250)
 	private String title;
+
+	@Column(nullable = false)
+	private Boolean enabled;
 }
