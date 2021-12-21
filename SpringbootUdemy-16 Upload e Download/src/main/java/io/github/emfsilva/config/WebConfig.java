@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import io.github.emfsilva.serialization.converter.YamlJackson2HttpMessageConverter;
+import io.github.emfsilva.services.converter.YamlJackson2HttpMessageConverter;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer{

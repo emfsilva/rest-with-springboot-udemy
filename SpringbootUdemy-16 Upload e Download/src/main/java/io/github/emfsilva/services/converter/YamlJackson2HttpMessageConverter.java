@@ -1,4 +1,4 @@
-package io.github.emfsilva.serialization.converter;
+package io.github.emfsilva.services.converter;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
