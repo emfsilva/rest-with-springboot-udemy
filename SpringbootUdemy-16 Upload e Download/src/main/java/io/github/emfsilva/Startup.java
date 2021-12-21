@@ -8,9 +8,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@EnableAutoConfiguration
 @ComponentScan
-@EnableConfigurationProperties({FileStorageConfig.class})
+@EnableConfigurationProperties({
+		FileStorageConfig.class
+})
 public class Startup {
 
 	public static void main(String[] args) {

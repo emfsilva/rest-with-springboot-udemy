@@ -1,9 +1,6 @@
 package io.github.emfsilva.data.vo.v1;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -11,9 +8,9 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 public class UploadFileResponseDTO implements Serializable{
- 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8239373813372350142L;
 
 	private String fileName;
 	private String fileDownloadUri;
