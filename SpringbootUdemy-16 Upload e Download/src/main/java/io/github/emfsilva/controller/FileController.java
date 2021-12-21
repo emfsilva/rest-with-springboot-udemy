@@ -20,7 +20,7 @@ public class FileController {
     private FileStorageService fileStorageService;
 
     @PostMapping("/uploadFile")
-    public UploadFileResponseDTO uploudFile(@RequestParam("file")MultipartFile file) {
+    public UploadFileResponseDTO uploadFile(@RequestParam("file")MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
