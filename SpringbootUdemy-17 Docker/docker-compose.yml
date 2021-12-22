@@ -13,8 +13,6 @@ services:
       MYSQL_USER: docker
       MYSQL_PASSWORD: docker
       MYSQL_DATABASE: rest_spring_boot
-    volumes:
-      - ./mysql-data:/var/lib/mysql
     ports:
       - "3308:3306"
     networks:
