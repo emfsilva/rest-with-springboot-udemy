@@ -13,11 +13,13 @@ services:
       MYSQL_USER: docker
       MYSQL_PASSWORD: docker
       MYSQL_DATABASE: rest_spring_boot
+    volumes:
+      - ./mysql-data:/var/lib/mysql
     ports:
       - "3308:3306"
     networks:
       - udemy-network
-  rest-with-spring-boot-udemy:
+  SpringbootUdemy:
     image: emfsilva/rest-spring-boot
     restart: always
     build: ./SpringbootUdemy
@@ -26,8 +28,8 @@ services:
       TZ: America/Sao_Paulo
       SPRING_BOOT_ENVIRONMENT: Production
     volumes:
-      - ./RestSpringBoot:/RestSpringBoot
-      - ~/.m2:/root/.m2
+      - ./SpringbootUdemy:/SpringbootUdemy
+      - ~/.m2:/root/.m2    
     ports:
       - "8080:8080"
     command: mvn clean spring-boot:run
