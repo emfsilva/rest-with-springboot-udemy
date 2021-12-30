@@ -1,0 +1,34 @@
+file:
+    upload-dir: /Desenvolvimento/backend/udemy/restfull/Upload
+flyway:
+    schemas: rest_spring_boot
+    url: jdbc:mysql://rest-spring-boot.ciqqskudekgm.us-east-2.rds.amazonaws.com:3306/
+    user: docker
+    password: docker123
+security:
+    jwt:
+        token:
+            expire-length: 3600000
+            secret-key: secret
+spring:
+    datasource:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://rest-spring-boot.ciqqskudekgm.us-east-2.rds.amazonaws.com:3306/rest_spring_boot?verifyServerCertificate=false&useSSL=false&requireSSL=false
+        username: docker
+        password: docker123
+    jackson:
+        default-property-inclusion: non_null
+    jpa:
+        database-platform: org.hibernate.dialect.MySQL5Dialect
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5Dialect
+        show-sql: true
+    servlet:
+        multipart:
+            enabled: true
+            file-size-threshold: 2KB
+            max-file-size: 200MB
+            max-request-size: 215MB
